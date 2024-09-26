@@ -22,3 +22,4 @@ soupsieve==2.6
 urllib3==1.26.18
 Werkzeug==3.0.4
 wheel==0.42.0
+gunicorn
