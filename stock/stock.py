@@ -12,5 +12,8 @@ def getRealTimePrice(ticker :str, exchange : str):
     response = requests.get(url)
     soup = BeautifulSoup(response.text, 'html.parser')
     class1 = "YMlKec fxKbKc"
-    price = float(soup.find(class_=class1).text.strip()[1:].replace(",",""))
+    try:
+      price = float(soup.find(class_=class1).text.strip()[1:].replace(",",""))
+    except:
+      return ""
     return price

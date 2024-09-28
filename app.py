@@ -12,9 +12,9 @@ employees = [
 
 nextEmployeeId = 4
 
-@app.route('/stock', methods=['GET'])
-def get_employees():
- return jsonify(employees)
+@app.route('/test', methods=['GET'])
+def test_server():
+ return jsonify({ 'test': 'working'}), 200
 
 @app.route('/stock/<int:id>', methods=['GET'])
 def get_employee_by_id(id: int):
@@ -32,12 +32,13 @@ def employee_is_valid(employee):
 
 @app.route('/stock', methods=['POST'])
 def create_employee():
- global nextEmployeeId
  employee = json.loads(request.data)
-
- employees.append(employee)
  price = stock.getRealTimePrice(employee['id'], employee['name'])
- return jsonify({'price': price})
+ if not price:
+   return jsonify({'error': 'Invalid entry'}), 400
+ else:
+   return jsonify({'price': price}), 200
+ 
  #return '', 201, { 'location': f'/stock/{employee["id"]}' }
 
 @app.route('/stock/<int:id>', methods=['PUT'])
